@@ -377,10 +377,7 @@ td {
 
     .itemTableContainer {
         overflow-x: auto;
-    }
-
-    .itemTable {
-        min-width: 600px;
+        width: 100%;
     }
 
     .invoiceBox {
@@ -415,8 +412,7 @@ td {
    MOBILE TABLE CARD MODE
 ========================= */
 
-@media (max-width: 808px) {
-
+@media (max-width: 800px) {
     .itemTable,
     .itemTableHead,
     .itemTableBody,
@@ -449,7 +445,6 @@ td {
         font-size: 14px;
     }
 
-    /* Tambahkan label sebelum isi */
     .itemTableBody td:nth-child(1)::before {
         content: "Item Name";
         font-weight: 600;
