@@ -1,0 +1,418 @@
+/* =========================
+   GLOBAL
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #ffffff, #f2f7ff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1e293b;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+.container {
+    width: 900px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================
+   TITLE
+========================= */
+.title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.title h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   INPUT SECTION
+========================= */
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.inputBox label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+.inputBox input {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    transition: 0.3s ease;
+    font-size: 14px;
+}
+
+.inputBox input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+
+/* =========================
+   TABLE LAYOUT
+========================= */
+table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+td {
+    padding-right: 15px;
+    vertical-align: top;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+.commonBtn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.commonBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.4);
+}
+
+.commonBtn:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================
+   ITEM TABLE
+========================= */
+
+.itemTableContainer {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.itemTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8fafc;
+}
+
+.itemTableHead {
+    background: #444f67;
+}
+
+.itemTableHeader {
+    padding: 14px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.itemTableBody tr {
+    border-bottom: 1px solid #e2e8f0;
+    transition: 0.2s ease;
+}
+
+.itemTableBody tr:hover {
+    background: #e2e8f0;
+}
+
+.itemTableBody td {
+    padding: 14px;
+    font-size: 14px;
+}
+
+.itemTableBody td:nth-child(2),
+.itemTableBody td:nth-child(3) {
+    text-align: center;
+}
+
+.itemTableBody td:nth-child(4) {
+    text-align: right;
+    font-weight: 600;
+}
+
+.itemTableBody td:nth-child(5) {
+    text-align: center;
+}
+
+.deleteBtn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    background: #ef4444;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.deleteBtn:hover {
+    background: #dc2626;
+}
+
+
+/* =========================
+   INVOICE SECTION
+========================= */
+.invoiceContainer {
+    border-top: 2px solid #e2e8f0;
+    padding-top: 20px;
+}
+
+.invoiceBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.invoiceBox span:first-child {
+    font-weight: 600;
+    color: #475569;
+}
+
+#balanceInInvoice,
+#totalBill,
+#remainingBalance {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+
+#remainingBalance.positiveBalance {
+    color: #16a34a;
+}
+#remainingBalance.negativeBalance {
+    color: #bf0f39;
+}
+
+
+/* =========================
+   PRINT PREVIEW MODAL
+========================= */
+
+.printPreview {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: white;
+    padding: 40px;
+    overflow-y: auto;
+    z-index: 9999;
+}
+
+.printPreview.active {
+    display: block;
+}
+
+.invoiceList {
+    margin-top: 30px;
+}
+
+.printItemRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    page-break-inside: avoid;   /* ⬅ penting supaya tidak kepotong */
+}
+
+.printItemName {
+    flex: 2;
+}
+
+.printItemDetail {
+    flex: 3;
+    text-align: right;
+}
+
+.invoiceTotalContainer {
+    margin-top: 40px;
+}
+
+.invoiceTotalBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   PRINT STYLE
+========================= */
+
+@media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+    .printPreview,
+    .printPreview * {
+        visibility: visible;
+    }
+
+    .printPreview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    button {
+        display: none !important;
+    }
+
+    .printItemRow {
+        page-break-inside: avoid;
+    }
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.closePreviewBtn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #64748b;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.closePreviewBtn:hover {
+    background: #475569;
+}
+
+@media print {
+    .closePreviewBtn {
+        display: none !important;
+    }
+}
+
+
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 100%;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .title h1 {
+        font-size: 22px;
+    }
+
+    /* Input table jadi vertical */
+    table tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    table td {
+        padding-right: 0;
+    }
+
+    /* Button full nyaman disentuh */
+    .commonBtn {
+        padding: 16px;
+        font-size: 16px;
+    }
+
+    /* Table jadi horizontal scroll */
+    .itemTableContainer {
+        overflow-x: auto;
+    }
+
+    .itemTable {
+        min-width: 600px;
+    }
+
+    /* Invoice ringkas */
+    .invoiceBox {
+        font-size: 14px;
+    }
+
+    /* Print preview mobile */
+    .printPreview {
+        padding: 20px;
+    }
+
+    .printItemRow {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .printItemDetail {
+        text-align: left;
+    }
+
+    .invoiceTotalBox {
+        font-size: 14px;
+    }
+
+    /* Close button lebih nyaman */
+    .closePreviewBtn {
+        top: 15px;
+        right: 15px;
+        padding: 10px 16px;
+    }
+}

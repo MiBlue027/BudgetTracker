@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Budget Tracker </title>
+    <link rel="stylesheet" href="style.css">
+    <script src="SupportScript.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Budget Tracker </h1>
+        </div>
+        <div class="inputBox">
+            <label for="balance"> Balance </label>
+            <input id="balance" type="number" min="0">
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <div class="inputBox">
+                        <label for="itemName"> Item Name </label>
+                        <input id="itemName" type="text">
+                    </div>
+                </td>
+                <td>
+                    <div class="inputBox">
+                        <label for="quantity"> Quantity </label>
+                        <input id="quantity" type="number" min="1">
+                    </div>
+                </td>
+                <td>
+                    <div class="inputBox">
+                        <label for="unitPrice"> Unit Price </label>
+                        <input id="unitPrice" type="number" min="0">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button type="button" class="commonBtn" onclick="AddItem()"> Add </button>
+
+        <div class="itemTableContainer">
+            <table class="itemTable">
+                <thead class="itemTableHead">
+                <tr class="itemTableHeadRow">
+                    <th class="itemTableHeader">Item Name</th>
+                    <th class="itemTableHeader">Unit Price</th>
+                    <th class="itemTableHeader">Quantity</th>
+                    <th class="itemTableHeader">Total</th>
+                    <th class="itemTableHeader">Action</th>
+                </tr>
+                </thead>
+                <tbody class="itemTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="invoiceContainer">
+            <div class="invoiceBox">
+                <span> Balance: </span>
+                <span id="balanceInInvoice"> Rp 0 </span>
+            </div>
+            <div class="invoiceBox">
+                <span> Total Bill: </span>
+                <span id="totalBill"></span>
+            </div>
+            <div class="invoiceBox">
+                <span> Remaining Balance: </span>
+                <span id="remainingBalance"> </span>
+            </div>
+        </div>
+        <button onclick="OpenPrintPreview()" type="button" class="commonBtn"> Print Invoice </button>
+    </div>
+
+    <div class="printPreview">
+        <button type="button" class="closePreviewBtn" onclick="ClosePrintPreview()">Close</button>
+        <div class="title">
+            <h1> Invoice </h1>
+            <p> date </p>
+        </div>
+        <div class="invoiceList">
+
+        </div>
+        <div class="invoiceTotalContainer">
+            <div class="invoiceTotalBox">
+                <span> Balance: </span>
+                <span id="invoiceBalance"> Rp 0 </span>
+            </div>
+            <div class="invoiceTotalBox">
+                <span> Total Bill: </span>
+                <span id="invoiceTotalBill"></span>
+            </div>
+            <div class="invoiceTotalBox">
+                <span> Remaining Balance: </span>
+                <span id="invoiceRemainingBalance"> </span>
+            </div>
+        </div>
+        <button type="button" class="commonBtn" onclick="PrintInvoice()"> Print </button>
+    </div>
+
+    <script>
+        const balanceInputEl = document.getElementById("balance");
+        const balanceInvoiceEl = document.getElementById("balanceInInvoice");
+
+        balanceInputEl.addEventListener("input", function () {
+            const value = parseFloat(this.value) || 0;
+            balanceInvoiceEl.innerText = FormatCurrency(value);
+        });
+
+        const state = {
+            items: []
+        };
+
+        function AddItem() {
+            const itemNameEl = document.getElementById("itemName");
+            const quantityEl = document.getElementById("quantity");
+            const unitPriceEl = document.getElementById("unitPrice");
+
+            const isValid = ValidateItemInput(itemNameEl, quantityEl, unitPriceEl);
+            if (!isValid) {
+                return;
+            }
+
+            const item = {
+                name: itemNameEl.value,
+                quantity: parseFloat(quantityEl.value),
+                price: parseFloat(unitPriceEl.value)
+            };
+
+            state.items.push(item);
+            AppendItemToList(item, state.items.length - 1);
+
+            UpdateInvoice()
+
+            itemNameEl.value = "";
+            quantityEl.value = "";
+            unitPriceEl.value = "";
+        }
+
+        function ValidateItemInput(itemNameEl, quantityEl, unitPriceEl) {
+            ResetValidationStyle(itemNameEl, quantityEl, unitPriceEl);
+            if (IsEmpty(itemNameEl.value)) {
+                ShowError(itemNameEl, "Item name cannot be empty");
+                return false;
+            }
+            if (IsEmpty(quantityEl.value)) {
+                ShowError(quantityEl, "Quantity cannot be empty");
+                return false;
+            }
+            if (IsEmpty(unitPriceEl.value)) {
+                ShowError(unitPriceEl, "Unit price cannot be empty");
+                return false;
+            }
+            return true;
+        }
+
+        function IsEmpty(value) {
+            return value.trim() === "";
+        }
+
+        function UpdateInvoice() {
+            let totalBill = 0;
+            state.items.forEach((item) => {
+                totalBill += item.price * item.quantity;
+            })
+            document.getElementById("totalBill").innerText = FormatCurrency(totalBill);
+
+            const remainingBalance = balanceInputEl.value - totalBill;
+            document.getElementById("remainingBalance").innerText = FormatCurrency(remainingBalance);
+
+            document.getElementById("remainingBalance").classList.remove("positiveBalance", "negativeBalance");
+            if (remainingBalance > 0) {
+                document.getElementById("remainingBalance").classList.add("positiveBalance");
+            } else {
+                document.getElementById("remainingBalance").classList.add("negativeBalance");
+            }
+        }
+
+        function PrintInvoice() {
+            window.print();
+        }
+
+        function ClosePrintPreview() {
+            document.querySelector(".printPreview").classList.remove("active");
+        }
+
+    </script>
+</body>
+</html>
