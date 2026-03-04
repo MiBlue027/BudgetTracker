@@ -343,7 +343,7 @@ td {
    MOBILE RESPONSIVE
 ========================= */
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
 
     body {
         padding: 20px;
@@ -361,7 +361,6 @@ td {
         font-size: 22px;
     }
 
-    /* Input table jadi vertical */
     table tr {
         display: flex;
         flex-direction: column;
@@ -371,13 +370,11 @@ td {
         padding-right: 0;
     }
 
-    /* Button full nyaman disentuh */
     .commonBtn {
         padding: 16px;
         font-size: 16px;
     }
 
-    /* Table jadi horizontal scroll */
     .itemTableContainer {
         overflow-x: auto;
     }
@@ -386,12 +383,10 @@ td {
         min-width: 600px;
     }
 
-    /* Invoice ringkas */
     .invoiceBox {
         font-size: 14px;
     }
 
-    /* Print preview mobile */
     .printPreview {
         padding: 20px;
     }
@@ -409,10 +404,84 @@ td {
         font-size: 14px;
     }
 
-    /* Close button lebih nyaman */
     .closePreviewBtn {
         top: 15px;
         right: 15px;
         padding: 10px 16px;
+    }
+}
+
+/* =========================
+   MOBILE TABLE CARD MODE
+========================= */
+
+@media (max-width: 808px) {
+
+    .itemTable,
+    .itemTableHead,
+    .itemTableBody,
+    .itemTableHeader,
+    .itemTableBody tr,
+    .itemTableBody td {
+        display: block;
+        width: 100%;
+    }
+
+    /* Hide table header di mobile */
+    .itemTableHead {
+        display: none;
+    }
+
+    .itemTableBody tr {
+        background: #ffffff;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border: 1px solid #e2e8f0;
+    }
+
+    .itemTableBody td {
+        padding: 8px 0;
+        text-align: left !important;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+    }
+
+    /* Tambahkan label sebelum isi */
+    .itemTableBody td:nth-child(1)::before {
+        content: "Item Name";
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .itemTableBody td:nth-child(2)::before {
+        content: "Unit Price";
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .itemTableBody td:nth-child(3)::before {
+        content: "Quantity";
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .itemTableBody td:nth-child(4)::before {
+        content: "Total";
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .itemTableBody td:nth-child(5)::before {
+        content: "Action";
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .deleteBtn {
+        width: 8em;
+        margin-top: 6px;
     }
 }
