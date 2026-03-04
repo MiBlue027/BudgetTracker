@@ -388,8 +388,13 @@ td {
         padding: 20px;
     }
 
+    .printItemRow {
+        flex-direction: column;
+        gap: 4px;
+    }
+
     .printItemDetail {
-        text-align: right;
+        text-align: left;
     }
 
     .invoiceTotalBox {
